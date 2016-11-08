@@ -1,4 +1,7 @@
 #include<stdio.h>
+#include<stdbool.h>
+#include<string.h>
+#include"sicAssembler.c"
 void main()
 {
 	FILE * fpsource,fpinter;
