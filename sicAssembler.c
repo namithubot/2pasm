@@ -2,32 +2,37 @@
 #include<stdlib.h>
 #include<string.h>
 #define listLength 10
+long search_op_code_table_for_opcode(char*);
 struct symtab{
   char label[35];
   long address;
-  symtab *next;
+  struct symtab *next;
 };
 
 struct optab{
   char opcode[9];
   long hexcode;
-};
+}opcodeList[]={};
+
+char line[128];
 
 char* read_next_input_line(FILE *f){
-  char line[128];
+  //char line[128];
   fgets(line, sizeof(line), f);
   return line;
 }
 
 char* get_label(char* line){
-  char word[]=strtok(line, " ");
+  char word[23];
+  strcpy(word, strtok(line, " "));
   if(search_op_code_table_for_opcode(word)==-1)
     return word;
   return NULL;
 }
 
 char* get_op_code(char* line, char* label){
-  char word[]=strtok(line, " ");
+  char word[23];
+  strcpy(word, strtok(line, " "));
   if(!label) return word;
   return strtok(NULL, " ");
 }
@@ -44,7 +49,7 @@ long search_symbol_table_for_label(char* label, struct symtab *first){
 
 void insert_label_locctr_into_symbol_table(char* label, long locctr, struct symtab **first){
   struct symtab *tmp = (struct symtab*)malloc(sizeof(struct symtab));
-  struct *traverse;
+  struct symtab *traverse;
   tmp->next = NULL;
   tmp->address = locctr;
   if(!(*first)) *first = tmp;
