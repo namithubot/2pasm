@@ -12,7 +12,12 @@ struct symtab{
 struct optab{
   char opcode[9];
   long hexcode;
-}opcodeList[]={};
+}opcodeList[]={
+	{"LDA",00},
+	{"STA",23},
+        {"ADD",01},
+	{"SUB",05}
+};
 
 char line[128];
 
@@ -41,9 +46,11 @@ char* get_operand(char* line, char* label, char* opcode){
  }
 
 long search_symbol_table_for_label(char* label, struct symtab *first){
-  while(first->next!=NULL)
+  if(first){
+	while(first->next!=NULL)
     if(!strcmp(first->label, label))
       return first->address;
+	}
   return -1;
 }
 
@@ -60,7 +67,7 @@ void insert_label_locctr_into_symbol_table(char* label, long locctr, struct symt
   }
 }
 
-long search_opcode_table_for_opcode(char* opcodeProvided){
+long search_op_code_table_for_opcode(char* opcodeProvided){
   int i=listLength;
   while(--i)
     if(opcodeList[i].opcode==opcodeProvided)

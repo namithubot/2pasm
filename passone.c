@@ -113,4 +113,11 @@ void main()
 	}	
 	write_line_to_intermediate_file(fpinter,line);
 	program_length = locctr - starting_add;
+// Printing the symtab
+	printf("\nHere it comes...");
+	struct symtab *tmp=first;
+	while(tmp=NULL){
+		printf("%s\t%ld\n", tmp->label, tmp->address);
+		tmp=tmp->next;
+	}
 }
