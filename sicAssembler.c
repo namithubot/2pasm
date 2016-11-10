@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define listLength 10
+#define listLength 4
 long search_op_code_table_for_opcode(char*);
 struct symtab{
   char label[35];
@@ -20,7 +20,7 @@ struct optab{
 };
 
 char line[128];
-
+char word[23];
 char* read_next_input_line(FILE *f){
   //char line[128];
   fgets(line, sizeof(line), f);
@@ -28,7 +28,7 @@ char* read_next_input_line(FILE *f){
 }
 
 char* get_label(char* line){
-  char word[23];
+  //char word[23];
   strcpy(word, strtok(line, " "));
   if(search_op_code_table_for_opcode(word)==-1)
     return word;
@@ -36,13 +36,18 @@ char* get_label(char* line){
 }
 
 char* get_op_code(char* line, char* label){
-  char word[23];
+  //char word[23];
   strcpy(word, strtok(line, " "));
   if(!label) return word;
   return strtok(NULL, " ");
 }
 
 char* get_operand(char* line, char* label, char* opcode){
+	if(!strcmp(opcode, "RSUB")) return NULL;
+  strcpy(word, strtok(line, " "));
+  strcpy(word, strtok(NULL, " "));
+  if(!label) return word;
+  return strtok(NULL, " ");
  }
 
 long search_symbol_table_for_label(char* label, struct symtab *first){
@@ -69,7 +74,7 @@ void insert_label_locctr_into_symbol_table(char* label, long locctr, struct symt
 
 long search_op_code_table_for_opcode(char* opcodeProvided){
   int i=listLength;
-  while(--i)
+  while(i--)
     if(opcodeList[i].opcode==opcodeProvided)
       return opcodeList[i].hexcode;
   return -1;

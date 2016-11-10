@@ -5,7 +5,7 @@
 void main()
 {
 	FILE * fpsource,*fpinter;
-	char line[128],label[45],opcode[45],operand[45],operand_value[10];
+	char line[128],label[45],opcode[45], operand[45], operand_value[10];
 	long int locctr,program_length;
 	bool error_flag = false;
 	struct symtab *first = NULL;
@@ -21,7 +21,7 @@ void main()
 //a getting values of label,opcode,operand
 	strcpy(label,get_label(line));
 	strcpy(opcode,get_op_code(line,label));
-	strcpy(operand,get_operand(line,label,opcode));
+	//strcpy(operand,get_operand(line,label,opcode));
 //if the opcode is START
 	if(strcmp(opcode,"START")==0)	
 	{
@@ -116,7 +116,7 @@ void main()
 // Printing the symtab
 	printf("\nHere it comes...");
 	struct symtab *tmp=first;
-	while(tmp=NULL){
+	while(tmp!=NULL){
 		printf("%s\t%ld\n", tmp->label, tmp->address);
 		tmp=tmp->next;
 	}
