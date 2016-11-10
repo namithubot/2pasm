@@ -18,7 +18,7 @@ void main()
 	}
 //reading first input line
 	fgets(line,128,fpsource);
-//getting values of label,opcode,operand
+//a getting values of label,opcode,operand
 	strcpy(label,get_label(line));
 	strcpy(opcode,get_op_code(line,label));
 	strcpy(operand,get_operand(line,label,opcode));
