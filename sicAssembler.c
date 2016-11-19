@@ -29,8 +29,16 @@ char* read_next_input_line(FILE *f){
 
 char* get_label(char* line){
   //char word[23];
-  strcpy(word, strtok(line, " "));
-  if(search_op_code_table_for_opcode(word)==-1)
+  //strcpy(word, strtok(line, " "));
+  char * wordptr;
+  int i=0;
+  wordptr = strchr(line,' ');
+  while(line[i]!=*wordptr)
+  {
+	word[i]=line[i];
+	i++;
+  }
+   if(search_op_code_table_for_opcode(word)==-1)
     return word;
   return NULL;
 }
