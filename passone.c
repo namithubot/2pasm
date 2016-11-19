@@ -30,8 +30,11 @@ void main()
 		sscanf(operand,"%ld",&locctr);		
 		fpinter = fopen("source.2pasm.temp","w");
 //writing line in the intermediate file
-		if(fputs(line,fpinter))
-			printf("\nError writing in intermediate file.");
+		if(fputs(line,fpinter)==EOF)
+		{
+			printf("\nError writing in intermediate file.Exitting.");
+			exit(0);
+		}
 //reading next input line
 		strcpy(line,read_next_input_line(fpsource));	
 	}
