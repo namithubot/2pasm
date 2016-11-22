@@ -22,7 +22,14 @@ struct optab{
 
 char line[128];
 char word[23];
-
+void clearline()
+{
+	 memset(line,' ',128);
+}
+void clearword()
+{
+	 memset(word,' ',23);
+}
 void delimitWord(char **tmp, char del){
   int i=0;
   while(!(*(*tmp)) || *(*tmp)!=del) {
@@ -40,11 +47,13 @@ void delimitWord(char **tmp, char del){
 
 char* read_next_input_line(FILE *f){
   //char line[128];
+  clearline();
   fgets(line, 128, f);
   return line;
 }
 
 char* get_label(char* line){
+  clearword();
   //char word[23];
   //strcpy(word, strtok(line, " "));
   char *tmp=line;
@@ -60,28 +69,38 @@ char* get_label(char* line){
    if(search_op_code_table_for_opcode(word)==-1)
     return word;
   return NULL;
+
 }
 
 char* get_op_code(char* line, char* label){
+  clearword();
   //char word[23];
   //strcpy(word, strtok(line, " "));
   char *tmp=line;
   delimitWord(&tmp, ' ');
-  printf("%s", word);
-  if(label)
+  if(!label)
     delimitWord(&tmp, ' ');
   return word;
 }
 
 char* get_operand(char* line, char* label, char* opcode){
+  clearword();
   char *tmp=line;
   if(!strcmp(opcode, "RSUB")) return NULL;
 	//strcpy(word, strtok(line, " "));
 	//strcpy(word, strtok(NULL, " "));
-  delimitWord(&tmp, ' ');
-  delimitWord(&tmp, ' ');
   if(label)
-    delimitWord(&tmp, ' ');
+  {
+  delimitWord(&tmp, ' ');
+  clearword();
+  delimitWord(&tmp, 10);
+  return word;
+  }
+  delimitWord(&tmp,' ');
+  clearword();
+  delimitWord(&tmp,' ');
+  clearword();
+  delimitWord(&tmp,10);
   return word;
  }
 
@@ -94,12 +113,13 @@ long search_symbol_table_for_label(char* label, struct symtab *first){
   return -1;
 }
 
-void insert_label_locctr_into_symbol_table(char* label, long locctr, struct symtab **first){
+void insert_label_locctr_into_symbol_table(char* label1, long locctr, struct symtab **first){
   struct symtab *tmp = (struct symtab*)malloc(sizeof(struct symtab));
   struct symtab *traverse;
   tmp->next = NULL;
+  strcpy(tmp->label,label1);
   tmp->address = locctr;
-  if(!(*first)) *first = tmp;
+  if(!*first) *first = tmp;
   else {
     traverse=*first;
     while(traverse->next!=NULL) traverse=traverse->next;
@@ -110,11 +130,11 @@ void insert_label_locctr_into_symbol_table(char* label, long locctr, struct symt
 long search_op_code_table_for_opcode(char* opcodeProvided){
   int i=listLength;
   while(i--)
-    if(opcodeList[i].opcode==opcodeProvided)
+    if(strcmp(opcodeList[i].opcode,opcodeProvided)==0)
       return opcodeList[i].hexcode;
   return -1;
 }
 
 void write_line_to_intermediate_file(FILE *f, char* line){
-  fprintf(f, "%s\n", line);
+  fprintf(f, "%s", line);
 }
