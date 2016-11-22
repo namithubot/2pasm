@@ -23,21 +23,21 @@ char line[128];
 char word[23];
 char* read_next_input_line(FILE *f){
   //char line[128];
-  fgets(line, sizeof(line), f);
+  fgets(line, 128, f);
   return line;
 }
 
 char* get_label(char* line){
   //char word[23];
-  //strcpy(word, strtok(line, " "));
-  char * wordptr;
-  int i=0;
-  wordptr = strchr(line,' ');
-  while(line[i]!=*wordptr)
-  {
-	word[i]=line[i];
-	i++;
-  }
+  strcpy(word, strtok(line, " "));
+  // char * wordptr;
+  //int i=0;
+  //  wordptr = strchr(line,' ');
+  //while(line[i]!=*wordptr)
+  //{
+  //word[i]=line[i];
+  //	i++;
+  //}
    if(search_op_code_table_for_opcode(word)==-1)
     return word;
   return NULL;
@@ -46,6 +46,7 @@ char* get_label(char* line){
 char* get_op_code(char* line, char* label){
   //char word[23];
   strcpy(word, strtok(line, " "));
+  printf("%s", word);
   if(!label) return word;
   return strtok(NULL, " ");
 }

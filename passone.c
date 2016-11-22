@@ -123,4 +123,6 @@ void main()
 		printf("%s\t%ld\n", tmp->label, tmp->address);
 		tmp=tmp->next;
 	}
+	printf("\nProgram length is %d", program_length);
+	if(error_flag) printf("There was an error!");
 }
