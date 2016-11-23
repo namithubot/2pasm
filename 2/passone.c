@@ -53,7 +53,7 @@ if(op[0]=='X')
 lc=lc+1;
 else
    {
-len=strlen(op)-2;
+len=strlen(op)-3;
 lc=lc+len;
 }
    }
@@ -66,7 +66,7 @@ fscanf(f1,"%s%s",la,m1);
  }
 if(strcmp(m1,"END")==0)
  {
-printf("Program length =%d",lc-sa);
+printf("Program length =%d\n",lc-sa);
  fprintf(f4, "%d", lc-sa);
 }
 fclose(f1);

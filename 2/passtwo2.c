@@ -9,17 +9,17 @@ fint=fopen("input.txt","r");
 flen=fopen("length.txt","r");
 ftab=fopen("optab.txt","r");
 fsym=fopen("symtab.txt","r");
-fscanf(fint,"%s%s%s",add,label,mne,operand);
+fscanf(fint,"%s%s%s",label,mne,operand);
 if(strcmp(mne,"START")==0)
 {
   strcpy(start,operand);
-  fscanf(flen,"%d",len);
+  fscanf(flen,"%d",&len);
   /*k=strlen(leng);
   len=0; l=0;
   for(l=0; l<k; l++) len+=len*10+(leng[l]-'0');
   printf("\n%d\n", len);*/
  }
-printf("H^%s^%s^%s\nT^00%s^",label,start,leng,start);
+printf("H^%s^%s^%d\nT^00%s^",label,start,len,start);
 fscanf(fint,"%s%s%s",label,mne,operand);
 while(strcmp(mne,"END")!=0)
 {
@@ -64,7 +64,7 @@ while(strcmp(mne,"END")!=0)
   fseek(ftab,SEEK_SET,0);
   //}
 }
-printf("\nE^00%s",start);
+printf("\nE^00%s\n",start);
 fclose(fint);
 fclose(ftab);
 fclose(fsym);
