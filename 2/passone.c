@@ -5,9 +5,9 @@ void main()
   FILE *f1,*f2,*f3, *f4;
 int lc,sa,l,op1,o,len;
 char m1[20],la[20],op[20],otp[20];
- f1=fopen("input.txt","r");
- f3=fopen("symtab.txt","w");
- f4=fopen("length.txt", "w");
+ f1=fopen("input.2pasm","r");
+ f3=fopen("symtab","w");
+ f4=fopen("length", "w");
 fscanf(f1,"%s %s %d",la,m1,&op1);
 if(strcmp(m1,"START")==0)
  {
@@ -26,7 +26,7 @@ printf("\n%d\t%s\t%s\t%s\n",lc,la,m1,op);
   {
 fprintf(f3,"\n%d\t%s\n",lc,la);
   }
-  f2=fopen("optab.txt","r");
+  f2=fopen("optab","r");
 fscanf(f2,"%s %d",otp,&o);
 while(!feof(f2))
   {
